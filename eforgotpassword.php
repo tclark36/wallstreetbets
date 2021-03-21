@@ -1,33 +1,42 @@
 <?php
-  $email = "";
-  $epassword = "";
-  $error = false;
+    $email = "";
+    $epassword = "";
+    $error = false;
 
-  if(isset($_POST["submit"])) {
-    if(isset($_POST["email"])) $email=$_POST["email"];
-    if(isset($_POST["password"])) $epassword=$_POST["password"];
-  }
+    if(isset($_POST["submit"])){
+        if(isset($_POST["email"])) $email=$_POST["email"];
+        if(isset($_POST["password"])) $epassword=$_POST["password"];
 
-  if(!$error) {
-    include 'dbconnect.php';
-    $sql = "select * from cpsc.employee where email='$email' and password='$epassword'";
-    $result = $conn->query($sql);
-    $row=mysqli_fetch_array($result);
-    if($row) {
-      Header("Location:about.php");
-    } else {
-      $error = true;
+        if(!empty($email) && !empty($epassword)){
+            include 'dbconnect.php';
+
+            //check to see if email exists in database
+            $sql = "select * from cpsc.employee where Email='$email'";
+            $result = $conn->query($sql);
+            $row=mysqli_fetch_array($result);
+            if($row) {
+                //update password for account
+                $sql = "update cpsc.employee set Password='$epassword' where Email='$email'";
+                $result = $conn->query($sql);
+                if($result) {
+                    //javascript to display a confirmation message
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Your password has been changed!")';
+                    echo '</script>';
+                }
+            } else {
+                $error = true;
+            }
+        }
     }
-  }
 ?>
-
 <!DOCTYPE html>
 <html lan="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Forgot Password</title>
   <!--Google Icon Font Style-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Materialize.css style-->
@@ -56,8 +65,8 @@
     #loginform {
       text-align: center;
     }
-    #mloginbtn {
-      text-align: right;
+    #eloginbtn {
+        text-align: right;
     }
     #newusertxt {
       text-align: center;
@@ -73,12 +82,12 @@
 <body class="light-blue darken-4">
   <div class="container">
 
-    <!--Manager Login button-->
+    <!--Back to Login button-->
     <div class="row"></br>
       <div class="col s12">
-        <form id="mloginbtn" action="managerlogin.php">
-          <button class="btn waves-effect waves-light black" type="submit" name="mlogin">
-            Manager Login <i class="material-icons right">arrow_forward</i>
+        <form id="eloginbtn" action="index.php">
+          <button class="btn waves-effect waves-light black" type="submit" name="elogin">
+            Back to Login <i class="material-icons right">arrow_forward</i>
           </button>
         </form>
       </div>
@@ -90,7 +99,7 @@
       <div class="col s12"><img src="images/CPSCLogo.png" style="float:center"/></div>
     </div>
     
-    <!--login form-->
+    <!--change password form-->
     <div class="row">
     <form id="loginform" class="col s6 offset-s3" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">  
         <div class="row">
@@ -101,34 +110,21 @@
         </div>
         <div class="row">
           <div class="input-field col s6 offset-s3">
-            <label for="password">Password:</label>
+            <label for="password">New Password:</label>
             <input name="password" type="password"/>
           </div>
         </div>
         <?php
           if ($error && !empty($email) && !empty($epassword)) {
-            echo "<label class='errlabel'>Error: Please enter a valid email and password.</label><br/>";
+            echo "<label class='errlabel'>Error: There is not an account registered with this email.</label><br/>";
           }
         ?>
         <button class="btn waves-effect waves-light black" type="submit" name="submit">
-            Login <i class="material-icons right">arrow_forward</i>
+            Change Password <i class="material-icons right">arrow_forward</i>
         </button>
     </form>
     </div>
 
-    <!--forgot password label and link-->
-    <div class="row">
-      <div class="col s4 offset-s4">
-        <p id="newusertxt">Forgot password? <a id="newuserlink" href="eforgotpassword.php">Click here</a></p>
-      </div>
-    </div>
-
-    <!--new user registration label and link-->
-    <div class="row">
-      <div class="col s4 offset-s4">
-        <p id="newusertxt">Not a user? <a id="newuserlink" href="managerlogin.php">Register</a></p>
-      </div>
-    </div>
   </div>
 
 
