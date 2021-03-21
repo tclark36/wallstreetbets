@@ -44,7 +44,7 @@
                 }
 
                 $sql = "insert into cpsc.recall(Recall_Date, Title, Description, Recall_URL, Consumer_Contact, Last_Publish_Date, Seller_ID)
-                    values('$recalldate', $title, '$description', '$recallurl', '$consumercontact', '$lastpublishdate', $sellerid)";
+                    values('$recalldate', '$title', '$description', '$recallurl', '$consumercontact', '$lastpublishdate', $sellerid)";
                 $result = $conn->query($sql);
                 if(!empty($result)) {
                     $type = "success";
