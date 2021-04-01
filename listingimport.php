@@ -197,10 +197,8 @@
             <!--display all listings after successful import-->
             <div class="col s12">
                 <!--title-->
-                <div class="row">
-                    <h5><strong>All Current Listings</strong></h5>
-                </div>
-
+                <h5><strong>All Current Listings</strong></h5>
+        
                 <!--displaying current records-->
                 <?php
                     include 'dbconnect.php';
