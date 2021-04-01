@@ -214,7 +214,7 @@
                                 <tbody>
                                     <tr>
                                         <td><?php echo $row['Listing_ID']; ?></td>
-                                        <td><?php echo $row['URL']; ?></td>
+                                        <td><a href='<?php echo $row['URL']; ?>'><?php echo $row['URL']; ?></a></td>
                                         <td><?php echo $row['Listing_Date']; ?></td>
                                     </tr>
                                         <?php } ?>
