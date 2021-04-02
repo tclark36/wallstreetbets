@@ -128,7 +128,7 @@
     }
     #lbighdr {
         width: 70%;
-        word-wrap: break-word;
+        overflow:hidden;
     }
     #listingtable {
         table-layout: fixed;

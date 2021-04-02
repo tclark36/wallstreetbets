@@ -111,7 +111,7 @@
     }
     #lbighdr {
         width: 60%;
-        word-wrap: break-word;
+        overflow: hidden;
     }
     #importbtn {
         text-align: right;
