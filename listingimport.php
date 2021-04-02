@@ -128,6 +128,10 @@
     }
     #lbighdr {
         width: 70%;
+        word-wrap: break-word;
+    }
+    #listingtable {
+        table-layout: fixed;
     }
   </style>
 </head>

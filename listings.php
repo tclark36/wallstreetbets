@@ -111,9 +111,13 @@
     }
     #lbighdr {
         width: 60%;
+        word-wrap: break-word;
     }
     #importbtn {
         text-align: right;
+    }
+    #listingstable {
+        table-layout: fixed;
     }
   </style>
 </head>
