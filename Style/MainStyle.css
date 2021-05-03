@@ -2,3 +2,31 @@ h1 {
     text-align: center;
     color: white;
 }
+
+.headertbl {
+    text-align: left;
+    height: 50;
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.headerlbl {
+    text-align: left;
+    font-size: 20pt;
+    color: black;
+    vertical-align: middle;
+}
+
+.container {
+    width: 100%;
+}
+
+.errlabel {
+    color:red;
+    width: 325px;
+}
+
+.tblcliptxt {
+    white-space:nowrap;
+    overflow: hidden;
+}

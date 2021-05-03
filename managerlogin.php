@@ -1,22 +1,24 @@
 <?php
   $email = "";
-  $epassword = "";
+  $mpassword = "";
   $error = false;
 
   if(isset($_POST["submit"])) {
     if(isset($_POST["email"])) $email=$_POST["email"];
-    if(isset($_POST["password"])) $epassword=$_POST["password"];
+    if(isset($_POST["password"])) $mpassword=$_POST["password"];
   }
 
   if(!$error) {
     include 'dbconnect.php';
-    $sql = "select * from cpsc.employee where email='$email' and password='$epassword'";
+    $sql = "select * from cpsc.manager1 where email='$email' and password='$mpassword'";
     $result = $conn->query($sql);
     $row=mysqli_fetch_array($result);
     if($row) {
-      Header("Location:about.php");
+        session_start();
+        $_SESSION['managerid'] = $row["Manager_ID"];
+        Header("Location:mlandingpage.php");
     } else {
-      $error = true;
+        $error = true;
     }
   }
 ?>
@@ -27,7 +29,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Manager Login</title>
   <!--Google Icon Font Style-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Materialize.css style-->
@@ -56,8 +58,8 @@
     #loginform {
       text-align: center;
     }
-    #mloginbtn {
-      text-align: right;
+    #eloginbtn {
+        text-align: right;
     }
     #newusertxt {
       text-align: center;
@@ -73,12 +75,12 @@
 <body class="light-blue darken-4">
   <div class="container">
 
-    <!--Manager Login button-->
+    <!--Employee Login button-->
     <div class="row"></br>
       <div class="col s12">
-        <form id="mloginbtn" action="managerlogin.php">
-          <button class="btn waves-effect waves-light black" type="submit" name="mlogin">
-            Manager Login <i class="material-icons right">arrow_forward</i>
+        <form id="eloginbtn" action="index.php">
+          <button class="btn waves-effect waves-light black" type="submit" name="elogin">
+            Employee Login <i class="material-icons right">arrow_forward</i>
           </button>
         </form>
       </div>
@@ -106,7 +108,7 @@
           </div>
         </div>
         <?php
-          if ($error && !empty($email) && !empty($epassword)) {
+          if ($error && !empty($email) && !empty($mpassword)) {
             echo "<label class='errlabel'>Error: Please enter a valid email and password.</label><br/>";
           }
         ?>
@@ -116,19 +118,6 @@
     </form>
     </div>
 
-    <!--forgot password label and link-->
-    <div class="row">
-      <div class="col s4 offset-s4">
-        <p id="newusertxt">Forgot password? <a id="newuserlink" href="eforgotpassword.php">Click here</a></p>
-      </div>
-    </div>
-
-    <!--new user registration label and link-->
-    <div class="row">
-      <div class="col s4 offset-s4">
-        <p id="newusertxt">Not a user? <a id="newuserlink" href="managerlogin.php">Register</a></p>
-      </div>
-    </div>
   </div>
 
 
